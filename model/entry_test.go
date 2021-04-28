@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/nebisin/gowallet/util"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
@@ -9,7 +10,7 @@ import (
 func createRandomEntry(t *testing.T, account Account) Entry {
 	arg := CreateEntryPayload{
 		AccountId: account.ID,
-		Amount: 100,
+		Amount: util.RandomMoney(),
 	}
 
 	entry, err := testRepository.CreateEntry(arg)

@@ -2,6 +2,7 @@ package model
 
 import (
 	"database/sql"
+	"github.com/nebisin/gowallet/util"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
@@ -9,9 +10,9 @@ import (
 
 func createRandomAccount(t *testing.T) Account {
 	arg := CreateAccountPayload{
-		Owner:    "Test",
-		Balance:  100,
-		Currency: "USD",
+		Owner:    util.RandomOwner(),
+		Balance:  util.RandomMoney(),
+		Currency: util.RandomCurrency(),
 	}
 
 	account, err := testRepository.CreateAccount(arg)
@@ -73,7 +74,7 @@ func TestRepository_UpdateAccount(t *testing.T) {
 
 	arg := UpdateAccountParams{
 		ID: account1.ID,
-		Balance: 200,
+		Balance: util.RandomMoney(),
 	}
 
 	account2, err := testRepository.UpdateAccount(arg)
