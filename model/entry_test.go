@@ -9,7 +9,7 @@ import (
 
 func createRandomEntry(t *testing.T, account Account) Entry {
 	arg := CreateEntryPayload{
-		AccountId: account.ID,
+		AccountID: account.ID,
 		Amount: util.RandomMoney(),
 	}
 

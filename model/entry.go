@@ -1,7 +1,7 @@
 package model
 
 type CreateEntryPayload struct {
-	AccountId uint64 `json:"account_id"`
+	AccountID uint64 `json:"account_id"`
 	Amount    int64  `json:"amount"`
 }
 
@@ -10,7 +10,7 @@ VALUES ($1, $2)
 RETURNING id, account_id, amount, created_at`
 
 func (r Repository) CreateEntry(arg CreateEntryPayload) (Entry, error) {
-	row := r.db.QueryRow(createEntry, arg.AccountId, arg.Amount)
+	row := r.db.QueryRow(createEntry, arg.AccountID, arg.Amount)
 	var entry Entry
 	err := row.Scan(
 		&entry.ID,

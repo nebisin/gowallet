@@ -9,6 +9,7 @@ import (
 )
 
 var testRepository *Repository
+var testSQLRepository *SQLRepository
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
@@ -20,6 +21,7 @@ func TestMain(m *testing.M) {
 	}
 
 	testRepository = CreateRepository(testDB)
+	testSQLRepository = NewSQLRepository(testDB)
 
 	os.Exit(m.Run())
 }
