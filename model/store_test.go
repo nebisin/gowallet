@@ -7,11 +7,12 @@ import (
 )
 
 func TestSQLRepository_TransferTx(t *testing.T) {
+	store := NewSQLRepository(testDB)
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
 	fmt.Println(">> before:", account1.Balance, account2.Balance)
 
-	result, err := testSQLRepository.TransferTx(TransferTxParams{
+	result, err := store.TransferTx(TransferTxParams{
 		FromAccountID: account1.ID,
 		ToAccountID:   account2.ID,
 		Amount:        5,
@@ -68,6 +69,5 @@ func TestSQLRepository_TransferTx(t *testing.T) {
 
 	require.Equal(t, account1.Balance-5, updatedAccount1.Balance)
 	require.Equal(t, account2.Balance+5, updatedAccount2.Balance)
-
 
 }
