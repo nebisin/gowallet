@@ -10,7 +10,7 @@ const createTransfer = `INSERT INTO transfers (from_account_id, to_account_id, a
 VALUES ($1, $2, $3)
 RETURNING id, from_account_id, to_account_id, amount, created_at`
 
-func (r Repository) CreateTransfer(args CreateTransferPayload) (Transfer, error) {
+func (r *Repository) CreateTransfer(args CreateTransferPayload) (Transfer, error) {
 	row := r.db.QueryRow(createTransfer, args.FromAccountID, args.ToAccountID, args.Amount)
 
 	var transfer Transfer
@@ -28,7 +28,7 @@ func (r Repository) CreateTransfer(args CreateTransferPayload) (Transfer, error)
 const getTransfer = `SELECT id, from_account_id, to_account_id, amount, created_at 
 FROM transfers WHERE id = $1 LIMIT 1`
 
-func (r Repository) GetTransfer(id uint64) (Transfer, error) {
+func (r *Repository) GetTransfer(id uint64) (Transfer, error) {
 	row := r.db.QueryRow(getTransfer, id)
 	var transfer Transfer
 	err := row.Scan(
@@ -52,7 +52,7 @@ type ListTransferParams struct {
 	Offset        int32  `json:"offset"`
 }
 
-func (r Repository) ListTransfer(arg ListTransferParams) ([]Transfer, error) {
+func (r *Repository) ListTransfer(arg ListTransferParams) ([]Transfer, error) {
 	rows, err := r.db.Query(listTransfer, arg.FromAccountID, arg.ToAccountID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err

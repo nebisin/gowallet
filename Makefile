@@ -16,4 +16,7 @@ migrateup:
 migratedown:
 	migrate -path db/migration -database "postgresql://root:password@localhost:5432/go_wallet?sslmode=disable" -verbose down
 
-.PHONY: postgres createdb dropdb test
+server:
+	go run main.go
+
+.PHONY: postgres createdb dropdb test server

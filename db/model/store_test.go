@@ -7,7 +7,7 @@ import (
 )
 
 func TestSQLRepository_TransferTx(t *testing.T) {
-	store := NewSQLRepository(testDB)
+	store := NewStore(testDB)
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
 	fmt.Println(">> before:", account1.Balance, account2.Balance)

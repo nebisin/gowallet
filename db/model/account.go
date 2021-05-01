@@ -12,7 +12,7 @@ owner, balance, currency
 $1, $2, $3
 ) RETURNING id, owner, balance, currency, created_at`
 
-func (r Repository) CreateAccount(payload CreateAccountPayload) (Account, error) {
+func (r *Repository) CreateAccount(payload CreateAccountPayload) (Account, error) {
 	row := r.db.QueryRow(createAccount, payload.Owner, payload.Balance, payload.Currency)
 
 	var account Account
@@ -32,7 +32,7 @@ FROM accounts
 WHERE id = $1 
 LIMIT 1`
 
-func (r Repository) GetAccount(id uint64) (Account, error) {
+func (r *Repository) GetAccount(id uint64) (Account, error) {
 	row := r.db.QueryRow(getAccount, id)
 
 	var account Account
@@ -58,7 +58,7 @@ FROM accounts
 WHERE owner = $1 
 LIMIT $2 OFFSET $3`
 
-func (r Repository) ListAccount(arg ListAccountParams) ([]Account, error) {
+func (r *Repository) ListAccount(arg ListAccountParams) ([]Account, error) {
 	rows, err := r.db.Query(listAccount, arg.Owner, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
@@ -101,7 +101,7 @@ SET balance = $2
 WHERE id = $1 
 RETURNING id, owner, balance, currency, created_at`
 
-func (r Repository) UpdateAccount(arg UpdateAccountParams) (Account, error) {
+func (r *Repository) UpdateAccount(arg UpdateAccountParams) (Account, error) {
 	row := r.db.QueryRow(updateAccount, arg.ID, arg.Balance)
 
 	var account Account

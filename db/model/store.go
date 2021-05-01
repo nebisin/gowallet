@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func (r SQLRepository) execTx(fn func(*Repository) error) error {
+func (r Store) execTx(fn func(*Repository) error) error {
 	tx, err := r.db.Begin()
 	if err != nil {
 		return err
@@ -36,7 +36,7 @@ type TransferTxResult struct {
 	ToEntry     Entry    `json:"to_entry"`
 }
 
-func (r SQLRepository) TransferTx(arg TransferTxParams) (TransferTxResult, error) {
+func (r Store) TransferTx(arg TransferTxParams) (TransferTxResult, error) {
 	var result TransferTxResult
 
 	err := r.execTx(func(q *Repository) error {

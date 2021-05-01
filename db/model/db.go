@@ -27,12 +27,14 @@ func CreateRepositoryWithTx(tx *sql.Tx) *Repository {
 	}
 }
 
-type SQLRepository struct {
+type Store struct {
 	db *sql.DB
+	*Repository
 }
 
-func NewSQLRepository(db *sql.DB) *SQLRepository {
-	return &SQLRepository{
-		db: db,
+func NewStore(db *sql.DB) *Store {
+	return &Store{
+		db:         db,
+		Repository: CreateRepository(db),
 	}
 }

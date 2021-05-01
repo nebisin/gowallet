@@ -9,7 +9,7 @@ const createEntry = `INSERT INTO entries (account_id, amount)
 VALUES ($1, $2) 
 RETURNING id, account_id, amount, created_at`
 
-func (r Repository) CreateEntry(arg CreateEntryPayload) (Entry, error) {
+func (r *Repository) CreateEntry(arg CreateEntryPayload) (Entry, error) {
 	row := r.db.QueryRow(createEntry, arg.AccountID, arg.Amount)
 	var entry Entry
 	err := row.Scan(
@@ -26,7 +26,7 @@ FROM entries
 WHERE id = $1 
 LIMIT 1`
 
-func (r Repository) GetEntry(id uint64) (Entry, error) {
+func (r *Repository) GetEntry(id uint64) (Entry, error) {
 	row := r.db.QueryRow(getEntry, id)
 
 	var entry Entry
@@ -51,7 +51,7 @@ FROM entries
 WHERE account_id = $1 
 LIMIT $2 OFFSET $3`
 
-func (r Repository) ListEntry(args ListEntryParams) ([]Entry, error) {
+func (r *Repository) ListEntry(args ListEntryParams) ([]Entry, error) {
 	rows, err := r.db.Query(listEntry, args.AccountID, args.Limit, args.Offset)
 	if err != nil {
 		return nil, err
