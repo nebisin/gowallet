@@ -48,23 +48,22 @@ func (r *Repository) GetAccount(id uint64) (Account, error) {
 }
 
 type ListAccountParams struct {
-	Owner  string `json:"owner"`
 	Limit  int32  `json:"limit"`
 	Offset int32  `json:"offset"`
 }
 
 const listAccount = `SELECT id, owner, balance, currency, created_at
 FROM accounts
-WHERE owner = $1 
-LIMIT $2 OFFSET $3`
+ORDER BY id 
+LIMIT $1 OFFSET $2`
 
 func (r *Repository) ListAccount(arg ListAccountParams) ([]Account, error) {
-	rows, err := r.db.Query(listAccount, arg.Owner, arg.Limit, arg.Offset)
+	rows, err := r.db.Query(listAccount, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 
-	var items []Account
+	items := []Account{}
 	for rows.Next() {
 		var i Account
 		err := rows.Scan(
