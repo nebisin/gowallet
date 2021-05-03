@@ -18,6 +18,8 @@ func NewServer(store *model.Store) *Server {
 	router.GET("/accounts/:id", server.getAccount)
 	router.GET("/accounts", server.listAccount)
 
+	router.POST("/transfers", server.transfer)
+
 	server.router = router
 	return server
 }
