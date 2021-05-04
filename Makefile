@@ -13,10 +13,16 @@ test:
 migrateup:
 	migrate -path db/migration -database "postgresql://root:password@localhost:5432/go_wallet?sslmode=disable" -verbose up
 
+migrateup1:
+	migrate -path db/migration -database "postgresql://root:password@localhost:5432/go_wallet?sslmode=disable" -verbose up 1
+
 migratedown:
 	migrate -path db/migration -database "postgresql://root:password@localhost:5432/go_wallet?sslmode=disable" -verbose down
+
+migratedown1:
+	migrate -path db/migration -database "postgresql://root:password@localhost:5432/go_wallet?sslmode=disable" -verbose down 1
 
 server:
 	go run main.go
 
-.PHONY: postgres createdb dropdb test server
+.PHONY: postgres createdb migrateup migratedown migrateup1 migratedown1 dropdb test server

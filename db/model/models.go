@@ -26,8 +26,9 @@ type Transfer struct {
 }
 
 type User struct {
-	Username          string    `json:"username"`
-	HashedPassword    string    `json:"hashed_password"`
-	Email             string    `json:"email"`
-	CreatedAt         time.Time `json:"created_at"`
+	Username       string    `json:"username"`
+	HashedPassword string    `json:"hashed_password"`
+	FullName       string    `json:"full_name"`
+	Email          string    `json:"email"`
+	CreatedAt      time.Time `json:"created_at"`
 }
