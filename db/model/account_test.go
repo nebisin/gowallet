@@ -51,11 +51,14 @@ func TestRepository_GetAccount(t *testing.T) {
 
 func TestRepository_ListAccount(t *testing.T) {
 
+	var lastAccount Account
+
 	for i := 0; i < 10; i++ {
-		createRandomAccount(t)
+		lastAccount = createRandomAccount(t)
 	}
 
 	arg := ListAccountParams{
+		Owner: lastAccount.Owner,
 		Limit:  5,
 		Offset: 0,
 	}
@@ -65,6 +68,7 @@ func TestRepository_ListAccount(t *testing.T) {
 
 	for _, account := range accounts {
 		require.NotEmpty(t, account)
+		require.Equal(t, account.Owner, lastAccount.Owner)
 	}
 }
 
