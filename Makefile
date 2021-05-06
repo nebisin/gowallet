@@ -1,5 +1,5 @@
 postgres:
-	docker run --name wallet-psql -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=password -d postgres:alpine
+	docker run --name wallet-psql --network wallet-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=password -d postgres:alpine
 
 createdb:
 	docker exec -it wallet-psql createdb --username=root --owner=root go_wallet
