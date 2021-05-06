@@ -94,6 +94,7 @@ func (server *Server) loginUser(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	err = util.CheckPassword(req.Password, user.HashedPassword)
